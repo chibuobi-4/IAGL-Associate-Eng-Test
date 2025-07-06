@@ -1,8 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Todo from "./Todo";
-import {fetchTodos, addTodo} from "../actions";
-import {connect} from "react-redux";
-
+import { fetchTodos, addTodo } from "../actions";
+import { connect } from "react-redux";
 
 class TodoList extends Component {
   state = {
@@ -30,14 +29,22 @@ class TodoList extends Component {
     const { todos } = this.props.data;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="add-todo">
           <input
             type="text"
+            className="add-todo-input"
             value={this.state.newTask}
             onChange={this.handleChange}
             placeholder="Add a new todo"
+            aria-label="Add a new todo"
           />
-          <button type="submit">Add</button>
+          <button
+            type="submit"
+            className="add-todo-button"
+            disabled={!this.state.newTask.trim()}
+          >
+            ➕ Add
+          </button>
         </form>
 
         <ul className="todo-list">
@@ -54,13 +61,11 @@ class TodoList extends Component {
   }
 }
 
-const mapStateToProps = ({data = {}, isLoadingData = false}) => ({
+const mapStateToProps = ({ data = {}, isLoadingData = false }) => ({
   data,
   isLoadingData,
 });
-export default connect(
-  mapStateToProps,
-  {
-    fetchTodos, addTodo,
-  }
-)(TodoList);
+export default connect(mapStateToProps, {
+  fetchTodos,
+  addTodo,
+})(TodoList);

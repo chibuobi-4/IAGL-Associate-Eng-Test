@@ -1,5 +1,3 @@
-//const { getTodos } = require("../repository/todo");
-
 const getTodos = (repository) => async () => {
   return await repository.getTodos();
 };
