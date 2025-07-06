@@ -8,9 +8,18 @@ const server = () => {
   server.use(express.json());
   server.use(cors());
 
+  //GET
   server.get('/api/todo', async (req, res) => {
     res.json(await todoService.getTodos());
   });
+
+
+  // POST
+  server.post('/api/todo', async(req, res) => {
+    const newTodo = await todoService.addTodo(req.body);
+    res.json(newTodo);
+
+  })
 
   /**
   POST /api/todo
